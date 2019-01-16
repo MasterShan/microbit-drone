@@ -33,15 +33,15 @@ def bar(arg):
 
 def disp(gesture, height):
     if gesture == 'up':
-        return height + display_down + display_floor
+        return height + ":" + display_down + ":" + display_floor
     elif gesture == 'down':
-        return height + display_up + display_floor
+        return height + ":" + display_up + ":" + display_floor
     elif gesture == 'right':
-        return height + display_right + display_floor
+        return height + ":" + display_right + ":" + display_floor
     elif gesture == 'left':
-        return height + display_left + display_floor
+        return height + ":" + display_left + ":" + display_floor
     else:
-        return height + display_none + display_floor
+        return height + ":" + display_none + ":" + display_floor
 
 while True:
     if button_a.was_pressed():
