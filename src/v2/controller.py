@@ -12,7 +12,7 @@ display_up = '00900:00900:00000'
 display_down = '00000:00900:00900'
 display_none = '00000:00900:00000'
 
-display_rcv = '30303'
+display_rcv = '00009'
 display_floor = '00000'
 last = False
 
