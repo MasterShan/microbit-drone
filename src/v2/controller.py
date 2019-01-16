@@ -1,4 +1,4 @@
-from microbit import *
+import microbit
 import radio
 
 radio.on()
@@ -12,10 +12,12 @@ display_up = '00900:00900:00000'
 display_down = '00000:00900:00900'
 display_none = '00000:00900:00000'
 
+display_rcv = '30303'
 display_floor = '00000'
+last = False
 
 def gesture():
-    return accelerometer.current_gesture()
+    return microbit.accelerometer.current_gesture()
 
 def bar(arg):
     if arg == 1:
@@ -31,32 +33,40 @@ def bar(arg):
     else:
         return '00000'
 
-def disp(gesture, height):
+def disp(gesture, height, floor):
     if gesture == 'up':
-        return height + ":" + display_down + ":" + display_floor
+        return height + ":" + display_down + ":" + floor
     elif gesture == 'down':
-        return height + ":" + display_up + ":" + display_floor
+        return height + ":" + display_up + ":" + floor
     elif gesture == 'right':
-        return height + ":" + display_right + ":" + display_floor
+        return height + ":" + display_right + ":" + floor
     elif gesture == 'left':
-        return height + ":" + display_left + ":" + display_floor
+        return height + ":" + display_left + ":" + floor
     else:
-        return height + ":" + display_none + ":" + display_floor
+        return height + ":" + display_none + ":" + floor
 
 while True:
-    if button_a.was_pressed():
+    if microbit.button_b.was_pressed():
         if height < 5:
             height += 1
 
-    if button_b.was_pressed():
+    if microbit.button_a.was_pressed():
         if height > 1:
             height -= 1
 
+    res = radio.receive()
     direction = gesture()
     top = bar(height)
-    face = disp(direction, top)
 
+    if res is 'rcv':
+        if last is False:
+            face = disp(direction, top, display_rcv)
+            last = True
+        elif last is True:
+            face = disp(direction, top, display_floor)
+            last = False
+    else:
+        face = disp(direction, top, display_floor)
+
+    microbit.display.show(microbit.Image(face))
     radio.send(face)
-
-    display.show(Image(face))
-    sleep(100)
