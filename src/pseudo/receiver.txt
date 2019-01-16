@@ -1,0 +1,10 @@
+import libs
+
+start radio
+
+forever
+    set signal to receive
+
+    if res not null
+        display res
+        send back to controller

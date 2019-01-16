@@ -1,0 +1,30 @@
+import libs
+start radio
+make displays
+set up blink
+
+fun gesture
+    return microbit gesture
+
+fun bar [arg]
+    return bar based on arg
+
+fun display [args]
+    return display based on args
+
+forever
+    if button a pressed
+        change height
+
+    if button b pressed
+        change height
+
+    set res to receive
+
+    if res is rcv
+        blink
+    else
+        display no blink
+
+    display entire body
+    send body
